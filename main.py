@@ -7,10 +7,10 @@ import random
 token = dotenv_values(".env")["BOT_TOKEN"]
 bot = Bot(token=token)
 dp = Dispatcher()
-
+counter_uniq_id = 0
 @dp.message(Command("start"))
 async def start_handler(message: types.Message):
-    counter_uniq_id = 0
+    global counter_uniq_id
     id_list = []
     if message.from_user.id not in id_list:
         id_list.append(message.from_user.id)
