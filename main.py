@@ -5,6 +5,7 @@ from handlers.picture import picture_router
 from handlers.start import start_router
 from handlers.commands import random_router
 from handlers.commands import myinfo_router
+from handlers.review_dialog import review_router
 from bot_config import bot, dp
 
 
@@ -14,7 +15,9 @@ async def main():
     dp.include_router(start_router)
     dp.include_router(myinfo_router)
     dp.include_router(picture_router)
+    dp.include_router(review_router)
     dp.include_router(other_message)
+
     # Запуск бота
     await dp.start_polling(bot)
 
