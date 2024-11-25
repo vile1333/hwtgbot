@@ -26,11 +26,28 @@ class Database:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT,
                     price INTEGER
-                    )
+                )
                 """
             )
+            try:
+                conn.execute(
+                    """
+                    ALTER TABLE dish ADD COLUMN category_id INTEGER;
+                    """
+                )
+            except sqlite3.OperationalError:
+                pass
 
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS dish_categories(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL UNIQUE
+                )
+                """
+            )
             conn.commit()
+
     def execute(self, query: str, params: tuple = ()):
         with sqlite3.connect(self.path) as conn:
             cursor = conn.cursor()
@@ -38,11 +55,11 @@ class Database:
             conn.commit()
             return cursor.fetchall()
 
-    def fetch(self, query: str, params: tuple = None ):
+    def fetch(self, query: str, params: tuple = None):
         with sqlite3.connect(self.path) as conn:
             if not params:
                 params = tuple()
-            result = conn.execute(query,params)
+            result = conn.execute(query, params)
             result.row_factory = sqlite3.Row
             data = result.fetchall()
             return [dict(r) for r in data]
