@@ -9,6 +9,8 @@ from handlers.random import random_router
 from handlers.my_info import myinfo_router
 from handlers.review_dialog import review_router
 from bot_config import bot, dp, database
+from handlers.admin_book import admin_dish_router
+from handlers.dishes import dish_router
 
 async def on_startup(bot):
     database.create_tables()
@@ -20,6 +22,8 @@ async def main():
     dp.include_router(myinfo_router)
     dp.include_router(picture_router)
     dp.include_router(review_router)
+    dp.include_router(dish_router)
+    dp.include_router(admin_dish_router)
     dp.include_router(other_message)
 
     dp.startup.register(on_startup)
