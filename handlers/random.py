@@ -2,9 +2,7 @@ from aiogram import Router, types
 from aiogram.filters import Command
 import random
 
-
 random_router = Router()
-myinfo_router = Router()
 
 @random_router.message(Command('random'))
 async def random_handler(message: types.Message):
@@ -25,11 +23,3 @@ async def random_handler(message: types.Message):
     index = list_of_dishes.index(choice)
     photo = types.FSInputFile(choice)
     await message.answer_photo(photo,caption=list_of_captions[index])
-
-@myinfo_router.message(Command('myinfo'))
-async def myinfo_handler(message: types.Message):
-        id = message.from_user.id
-        name = message.from_user.first_name
-        username = message.from_user.username
-        msg = f'Ваш id:{id}, Имя:{name}, username:{username}'
-        await message.answer(msg)
