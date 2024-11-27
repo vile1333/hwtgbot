@@ -2,29 +2,18 @@ import asyncio
 import logging
 
 from database.database import database
-from handlers.other_messages import other_message
-from handlers.picture import picture_router
-from handlers.start import start_router
-from handlers.random import random_router
-from handlers.my_info import myinfo_router
-from handlers.review_dialog import review_router
+
+from handlers import private_router
+from handlers.group import group_router
+
 from bot_config import bot, dp, database
-from handlers.admin_book import admin_dish_router
-from handlers.dishes import dish_router
 
 async def on_startup(bot):
     database.create_tables()
 
-
 async def main():
-    dp.include_router(random_router)
-    dp.include_router(start_router)
-    dp.include_router(myinfo_router)
-    dp.include_router(picture_router)
-    dp.include_router(review_router)
-    dp.include_router(dish_router)
-    dp.include_router(admin_dish_router)
-    dp.include_router(other_message)
+    dp.include_router(private_router)
+    dp.include_router(group_router)
 
     dp.startup.register(on_startup)
     # Запуск бота
