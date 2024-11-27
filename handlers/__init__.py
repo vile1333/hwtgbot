@@ -9,6 +9,7 @@ from .my_info import myinfo_router
 from .review_dialog import review_router
 from .other_messages import other_message
 
+
 private_router = Router()
 
 private_router.include_router(random_router)
@@ -22,4 +23,4 @@ private_router.include_router(admin_dish_router)
 private_router.include_router(other_message)
 
 private_router.message.filter(F.chat.type == "private")
-private_router.callback_query.filter(F.chat.type == "private")
+
